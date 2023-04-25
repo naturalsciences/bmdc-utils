@@ -17,7 +17,7 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import sun.net.www.protocol.ftp.FtpURLConnection;
+//import sun.net.www.protocol.ftp.FtpURLConnection;
 
 /**
  *
@@ -69,7 +69,6 @@ public class FilesizeGetter {
             return URL_SIZE_MAP_B.get(url.toString());
         } else {
             HttpURLConnection httpConn = null;
-            FtpURLConnection ftpConn = null;
             Double sizeInB = null;
             if (connection instanceof HttpURLConnection) {
                 httpConn = (HttpURLConnection) connection;
@@ -113,22 +112,6 @@ public class FilesizeGetter {
                         httpConn.disconnect();
                     }
                 }
-            } else if (connection instanceof FtpURLConnection) {
-
-                /*FTPClient client = new FTPClient();
-                            //client.connect(convertedDistributionResourceFileUrl.toString().replace("ftp://", ""));
-
-                            client.connect("ftp.rbins.be");
-                            FTPFile[] ftpFiles = client.listDirectories();
-
-                            for (FTPFile ftpFile : ftpFiles) {
-                                if (ftpFile.getType() == FTPFile.FILE_TYPE) {
-                                    sizeInB = new Double(ftpFile.getSize());
-                                    int a = 5;
-                                    //  FileUtils.byteCountToDisplaySize(ftpFile.getSize());
-                                }
-                            }*/
-                sizeInB = null;
             }
             URL_SIZE_MAP_B.put(url.toString(), sizeInB);
             return sizeInB;
