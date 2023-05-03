@@ -12,6 +12,9 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.lang.reflect.Field;
+import java.util.StringJoiner;
+import java.util.zip.CRC32;
 
 /**
  *
@@ -27,13 +30,45 @@ public class ObjectUtils {
         objectOutputStream.close();
     }
 
-    public static Object readObjectFromFile(File file) throws FileNotFoundException, IOException, ClassNotFoundException {
-        FileInputStream fileInputStream
-                = new FileInputStream(file);
-        ObjectInputStream objectInputStream
-                = new ObjectInputStream(fileInputStream);
+    public static Object readObjectFromFile(File file)
+            throws FileNotFoundException, IOException, ClassNotFoundException {
+        FileInputStream fileInputStream = new FileInputStream(file);
+        ObjectInputStream objectInputStream = new ObjectInputStream(fileInputStream);
         Object o = objectInputStream.readObject();
         objectInputStream.close();
         return o;
+    }
+/**
+ * Returns a String representation of all fields of the given object. The method is used to calculate CRC checksums which might be persisted in a adatabase. Do not modify the code in any way or a mismatch may happen!
+ * @param o
+ * @return
+ */
+    public static String toStringFields(Object o) {
+        StringJoiner sj = new StringJoiner(",");
+
+        for (Field field : o.getClass().getFields()) {
+            if (!java.lang.reflect.Modifier.isStatic(field.getModifiers())) {
+                try {
+                    sj.add(String.format("%s: %s", field.getName(), field.get(o)));
+                } catch (IllegalArgumentException | IllegalAccessException e) {
+                    sj.add(String.format("%s: %s", field.getName(), "null"));
+                }
+            }
+
+        }
+        return sj.toString();
+    }
+
+    /**
+     * Returns a CRC32 checksum of the given object.
+     * @param o
+     * @return
+     */
+    public static String getCRC32(Object o) {
+        String data = toStringFields(o);
+        CRC32 fileCRC32 = new CRC32();
+        fileCRC32.update(data.getBytes());
+        String a = String.format("%08X", fileCRC32.getValue());
+        return a;
     }
 }
