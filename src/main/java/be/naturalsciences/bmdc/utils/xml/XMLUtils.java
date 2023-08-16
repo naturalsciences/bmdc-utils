@@ -5,38 +5,32 @@
  */
 package be.naturalsciences.bmdc.utils.xml;
 
-import be.naturalsciences.bmdc.utils.FileUtils;
-import be.naturalsciences.bmdc.utils.StringUtils;
-import com.jcabi.aspects.Cacheable;
+import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.StringReader;
+import java.io.StringWriter;
+import java.net.MalformedURLException;
 import java.net.URISyntaxException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
+import javax.xml.XMLConstants;
+import javax.xml.bind.JAXBException;
+import javax.xml.namespace.NamespaceContext;
+import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.transform.OutputKeys;
 import javax.xml.transform.Source;
 import javax.xml.transform.Transformer;
 import javax.xml.transform.TransformerException;
 import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.stream.StreamResult;
 import javax.xml.transform.stream.StreamSource;
-import com.jcabi.xml.XML;
-import com.jcabi.xml.XMLDocument;
-import com.jcabi.xml.XPathContext;
-import java.io.ByteArrayInputStream;
-import java.io.StringReader;
-import java.io.StringWriter;
-import java.net.MalformedURLException;
-import java.util.ArrayList;
-import java.util.Map;
-import java.util.concurrent.TimeUnit;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.xml.XMLConstants;
-import javax.xml.bind.JAXBException;
-import javax.xml.namespace.NamespaceContext;
-import javax.xml.parsers.ParserConfigurationException;
-import javax.xml.transform.OutputKeys;
 import javax.xml.validation.Schema;
 import javax.xml.validation.SchemaFactory;
 import javax.xml.validation.Validator;
@@ -44,12 +38,20 @@ import javax.xml.xpath.XPath;
 import javax.xml.xpath.XPathConstants;
 import javax.xml.xpath.XPathExpressionException;
 import javax.xml.xpath.XPathFactory;
+
 import org.apache.commons.io.IOUtils;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
+
+import com.jcabi.xml.XML;
+import com.jcabi.xml.XMLDocument;
+import com.jcabi.xml.XPathContext;
+
+import be.naturalsciences.bmdc.utils.FileUtils;
+import be.naturalsciences.bmdc.utils.StringUtils;
 
 /**
  *
@@ -348,14 +350,14 @@ public class XMLUtils {
         return xml;
     }
 
-    @Cacheable(lifetime = 1, unit = TimeUnit.HOURS)
+    //@Cacheable(lifetime = 1, unit = TimeUnit.HOURS)
     public static Document toDocument(String xml) throws JAXBException, ParserConfigurationException, SAXException, IOException {
         XMLDocument xmlDocument = new XMLDocument(xml);
         return (Document) xmlDocument.node();
         //return DocumentBuilderFactory.newInstance().newDocumentBuilder().parse(new InputSource(new StringReader(xml)));
     }
 
-    @Cacheable(lifetime = 1, unit = TimeUnit.HOURS)
+    //@Cacheable(lifetime = 1, unit = TimeUnit.HOURS)
     public static Document toDocument(File xmlFile) throws JAXBException, ParserConfigurationException, SAXException, IOException {
         //    return DocumentBuilderFactory.newInstance().newDocumentBuilder().parse(xmlFile);
         XMLDocument xmlDocument = new XMLDocument(xmlFile);

@@ -9,16 +9,12 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.HttpURLConnection;
-import java.net.SocketTimeoutException;
 import java.net.URL;
 import java.net.URLConnection;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.LinkedHashMap;
 import java.util.Map;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-//import sun.net.www.protocol.ftp.FtpURLConnection;
 
 /**
  *
@@ -113,6 +109,11 @@ public class FilesizeGetter {
                     throw new FileNotFoundException(
                             String.format("No valid resource found at url %s", this.url.toString()));
                 }
+            } else { //for instance for FTP connections, just download it.
+                File tmp = new File(System.getProperty("java.io.tmpdir"));
+                File tmpfile = Paths.get(tmp.getPath(), "tmpfile").toFile();
+                FileUtils.copyURLToFile(url, tmpfile, 10000, 10000);
+                sizeInB = new Double(Files.size(tmpfile.toPath()));
             }
 
             return sizeInB;

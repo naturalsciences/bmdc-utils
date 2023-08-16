@@ -37,7 +37,7 @@ public class CollectionUtils {
         for (Map.Entry<String, String> entry : in.entrySet()) {
             String key = entry.getKey();
             String value = entry.getValue();
-            Map map = new HashMap();
+            Map<String, String> map = new HashMap<>();
             map.put(key, value);
             result.add(map);
         }

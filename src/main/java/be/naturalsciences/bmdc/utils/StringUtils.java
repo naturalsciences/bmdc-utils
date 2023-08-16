@@ -147,7 +147,7 @@ public class StringUtils extends org.apache.commons.lang3.StringUtils {
      */
     public static List<String> getRegexGroupResults(String string, Pattern ptFind) {
         int nbPatterns = StringUtils.countMatches(ptFind.pattern(), "(");
-        List<String> results = new ArrayList(nbPatterns);
+        List<String> results = new ArrayList<>(nbPatterns);
         Matcher matcher = ptFind.matcher(string);
 
         while (matcher.find()) {
