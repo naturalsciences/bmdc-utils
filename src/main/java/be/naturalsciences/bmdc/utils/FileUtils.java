@@ -531,10 +531,10 @@ public class FileUtils extends org.apache.commons.io.FileUtils {
             BufferedReader br = new BufferedReader(
                     new InputStreamReader(p.getInputStream()));
             while ((s = br.readLine()) != null) {
-                Logger.getLogger(FileUtils.class.getName()).log(Level.INFO, "line: " + s);
+                Logger.getLogger(FileUtils.class.getName()).info("line: " + s);
             }
             p.waitFor();
-            Logger.getLogger(FileUtils.class.getName()).log(Level.INFO, "exit: " + p.exitValue());
+            Logger.getLogger(FileUtils.class.getName()).info("exit: " + p.exitValue());
             p.destroy();
         } catch (Exception e) {
         }
@@ -545,12 +545,12 @@ public class FileUtils extends org.apache.commons.io.FileUtils {
             final URL url = new URL(urlS);
             final HttpURLConnection conn = (HttpURLConnection) url.openConnection();
             int statusCode = conn.getResponseCode();
-            Logger.getLogger(FileUtils.class.getName()).log(Level.INFO, "Website " + urlS + " returns status code:" + statusCode + ".");
+            Logger.getLogger(FileUtils.class.getName()).info("Website " + urlS + " returns status code:" + statusCode + ".");
             conn.connect();
             return statusCode == 200;
 
         } catch (Exception e) {
-            Logger.getLogger(FileUtils.class.getName()).log(Level.INFO, "Connecting to " + urlS + " failed: " + e.getClass().getSimpleName() + " thrown when trying to connect.");
+            Logger.getLogger(FileUtils.class.getName()).info("Connecting to " + urlS + " failed: " + e.getClass().getSimpleName() + " thrown when trying to connect.");
             return false;
         }
     }
@@ -570,12 +570,12 @@ public class FileUtils extends org.apache.commons.io.FileUtils {
         try {
             final HttpURLConnection conn = (HttpURLConnection) url.openConnection();
             int statusCode = conn.getResponseCode();
-            Logger.getLogger(FileUtils.class.getName()).log(Level.INFO, "Website " + url.toString() + " returns status code:" + statusCode + ".");
+            Logger.getLogger(FileUtils.class.getName()).info("Website " + url.toString() + " returns status code:" + statusCode + ".");
             conn.connect();
             return statusCode == 200;
 
         } catch (Exception e) {
-            Logger.getLogger(FileUtils.class.getName()).log(Level.INFO, "Connecting to " + url.toString() + " failed: " + e.getClass().getSimpleName() + " thrown when trying to connect.");
+            Logger.getLogger(FileUtils.class.getName()).info("Connecting to " + url.toString() + " failed: " + e.getClass().getSimpleName() + " thrown when trying to connect.");
             return false;
         }
     }
