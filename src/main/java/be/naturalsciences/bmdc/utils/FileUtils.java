@@ -37,12 +37,17 @@ import java.nio.file.attribute.PosixFilePermission;
 import java.nio.file.attribute.PosixFilePermissions;
 import java.nio.file.attribute.UserPrincipal;
 import java.nio.file.attribute.UserPrincipalLookupService;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.zip.GZIPInputStream;
+
+import javax.xml.bind.DatatypeConverter;
+
 import org.apache.commons.compress.archivers.sevenz.SevenZArchiveEntry;
 import org.apache.commons.compress.archivers.sevenz.SevenZFile;
 import org.apache.commons.io.IOUtils;
@@ -83,13 +88,13 @@ public class FileUtils extends org.apache.commons.io.FileUtils {
      */
     public static void saveToFile(String in, String encoding, File target)
             throws IOException {
-        
+
         FileUtils.writeStringToFile(target, in, encoding);
-       /* OutputStream out = null;
+        /* OutputStream out = null;
         InputStream inStream = IOUtils.toInputStream(in, encoding);
         int read = 0;
         byte[] bytes = new byte[1024];
-
+        
         out = new FileOutputStream(target);
         while ((read = inStream.read(bytes)) != -1) {
             out.write(bytes, 0, read);
@@ -181,7 +186,8 @@ public class FileUtils extends org.apache.commons.io.FileUtils {
      * @param bufferSize
      * @return
      */
-    public static BufferedOutputStream createFile(Path path, String extension, String owner, String perm, String group, int bufferSize) {
+    public static BufferedOutputStream createFile(Path path, String extension, String owner, String perm, String group,
+            int bufferSize) {
         if (path == null) {
             throw new IllegalArgumentException("The path is null.");
             //reportError("Path is null", null);
@@ -265,7 +271,8 @@ public class FileUtils extends org.apache.commons.io.FileUtils {
             try {
                 Files.createDirectories(path);
             } catch (IOException e) {
-                Logger.getLogger(FileUtils.class.getName()).log(Level.SEVERE, "Couldn't create directory: " + path.toString(), e);
+                Logger.getLogger(FileUtils.class.getName()).log(Level.SEVERE,
+                        "Couldn't create directory: " + path.toString(), e);
             }
         }
     }
@@ -276,8 +283,7 @@ public class FileUtils extends org.apache.commons.io.FileUtils {
         try {
             final GroupPrincipal earsGroup = lookupservice.lookupPrincipalByGroupName(group);
             Files
-                    .getFileAttributeView(path, PosixFileAttributeView.class
-                    ).setGroup(earsGroup);
+                    .getFileAttributeView(path, PosixFileAttributeView.class).setGroup(earsGroup);
         } catch (IOException ex) {
             reportError("Failed in setting group", ex);
         }
@@ -437,8 +443,6 @@ public class FileUtils extends org.apache.commons.io.FileUtils {
         return new String(encoded, encoding);
     }
 
- 
-
     /**
      * Read all content as a string from a (remote) url. Return null if the
      * connection can't be made. UTF-8 is understood.
@@ -545,12 +549,14 @@ public class FileUtils extends org.apache.commons.io.FileUtils {
             final URL url = new URL(urlS);
             final HttpURLConnection conn = (HttpURLConnection) url.openConnection();
             int statusCode = conn.getResponseCode();
-            Logger.getLogger(FileUtils.class.getName()).info("Website " + urlS + " returns status code:" + statusCode + ".");
+            Logger.getLogger(FileUtils.class.getName())
+                    .info("Website " + urlS + " returns status code:" + statusCode + ".");
             conn.connect();
             return statusCode == 200;
 
         } catch (Exception e) {
-            Logger.getLogger(FileUtils.class.getName()).info("Connecting to " + urlS + " failed: " + e.getClass().getSimpleName() + " thrown when trying to connect.");
+            Logger.getLogger(FileUtils.class.getName()).info("Connecting to " + urlS + " failed: "
+                    + e.getClass().getSimpleName() + " thrown when trying to connect.");
             return false;
         }
     }
@@ -570,12 +576,14 @@ public class FileUtils extends org.apache.commons.io.FileUtils {
         try {
             final HttpURLConnection conn = (HttpURLConnection) url.openConnection();
             int statusCode = conn.getResponseCode();
-            Logger.getLogger(FileUtils.class.getName()).info("Website " + url.toString() + " returns status code:" + statusCode + ".");
+            Logger.getLogger(FileUtils.class.getName())
+                    .info("Website " + url.toString() + " returns status code:" + statusCode + ".");
             conn.connect();
             return statusCode == 200;
 
         } catch (Exception e) {
-            Logger.getLogger(FileUtils.class.getName()).info("Connecting to " + url.toString() + " failed: " + e.getClass().getSimpleName() + " thrown when trying to connect.");
+            Logger.getLogger(FileUtils.class.getName()).info("Connecting to " + url.toString() + " failed: "
+                    + e.getClass().getSimpleName() + " thrown when trying to connect.");
             return false;
         }
     }
@@ -759,6 +767,26 @@ public class FileUtils extends org.apache.commons.io.FileUtils {
         gis.close();
 
         return outFile;
+    }
 
+    public static String checksumMD5(Path file)
+            throws IOException {
+        MessageDigest md;
+        try {
+            md = MessageDigest.getInstance("MD5");
+
+            md.update(Files.readAllBytes(file));
+            byte[] digest = md.digest();
+            String myChecksum = DatatypeConverter
+                    .printHexBinary(digest).toUpperCase();
+            return myChecksum;
+        } catch (NoSuchAlgorithmException e) {
+            return null;
+        }
+    }
+
+    public static String checksumCRC32(Path file)
+            throws IOException {
+        return Long.toString(FileUtils.checksumCRC32(file.toFile()));
     }
 }

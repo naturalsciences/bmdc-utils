@@ -13,8 +13,12 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.lang.reflect.Field;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.StringJoiner;
 import java.util.zip.CRC32;
+
+import javax.xml.bind.DatatypeConverter;
 
 /**
  *
@@ -38,11 +42,12 @@ public class ObjectUtils {
         objectInputStream.close();
         return o;
     }
-/**
- * Returns a String representation of all fields of the given object. The method is used to calculate CRC checksums which might be persisted in a adatabase. Do not modify the code in any way or a mismatch may happen!
- * @param o
- * @return
- */
+
+    /**
+     * Returns a String representation of all fields of the given object. The method is used to calculate CRC checksums which might be persisted in a adatabase. Do not modify the code in any way or a mismatch may happen!
+     * @param o
+     * @return
+     */
     public static String toStringFields(Object o) {
         StringJoiner sj = new StringJoiner(",");
 
@@ -70,5 +75,25 @@ public class ObjectUtils {
         fileCRC32.update(data.getBytes());
         String a = String.format("%08X", fileCRC32.getValue());
         return a;
+    }
+
+    /**
+     * Returns a MD5 checksum of the given object.
+     * @param o
+     * @return
+     */
+    public static String getMD5(Object o) {
+        String data = toStringFields(o);
+        MessageDigest md;
+        try {
+            md = MessageDigest.getInstance("MD5");
+            md.update(data.getBytes());
+            byte[] digest = md.digest();
+            String myHash = DatatypeConverter
+                    .printHexBinary(digest).toUpperCase();
+            return myHash;
+        } catch (NoSuchAlgorithmException e) {
+            return null;
+        }
     }
 }
