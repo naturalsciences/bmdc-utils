@@ -5,15 +5,12 @@
  */
 package be.naturalsciences.bmdc.utils;
 
+
 import java.util.LinkedHashMap;
 import java.util.Map;
-import org.junit.After;
-import org.junit.AfterClass;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.BeforeClass;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
-import static org.junit.Assert.*;
-import org.junit.Ignore;
+import static org.junit.jupiter.api.Assertions.*;
 
 /**
  *
@@ -24,27 +21,12 @@ public class TaxonomyUtilsTest {
     public TaxonomyUtilsTest() {
     }
 
-    @BeforeClass
-    public static void setUpClass() {
-    }
-
-    @AfterClass
-    public static void tearDownClass() {
-    }
-
-    @Before
-    public void setUp() {
-    }
-
-    @After
-    public void tearDown() {
-    }
 
     /**
      * Test of splitSpecies method, of class TaxonomyUtils.
      */
     @Test
-    @Ignore
+    @Disabled 
     public void testSplitSpecies() {
         System.out.println("splitSpecies");
         String speciesName = "";
@@ -59,7 +41,7 @@ public class TaxonomyUtilsTest {
      * Test of nameIsBinomial method, of class TaxonomyUtils.
      */
     @Test
-    @Ignore
+    @Disabled
     public void testNameIsBinomial() {
         System.out.println("nameIsBinomial");
         Map<String, Boolean> tests = new LinkedHashMap(); //keep order
@@ -78,7 +60,7 @@ public class TaxonomyUtilsTest {
      * Test of nameIsTrinomial method, of class TaxonomyUtils.
      */
     @Test
-    @Ignore
+    @Disabled
     public void testNameIsTrinomial() {
         System.out.println("nameIsTrinomial");
         Map<String, Boolean> tests = new LinkedHashMap(); //keep order
@@ -100,7 +82,7 @@ public class TaxonomyUtilsTest {
      * Test of getSpeciesFromSubspecies method, of class TaxonomyUtils.
      */
     @Test
-    @Ignore
+    @Disabled
     public void testGetSpeciesFromSubspecies() {
         System.out.println("getSpeciesFromSubspecies");
         String subspeciesName = "";
@@ -115,7 +97,7 @@ public class TaxonomyUtilsTest {
      * Test of getGenusFromSpecies method, of class TaxonomyUtils.
      */
     @Test
-    @Ignore
+    @Disabled
     public void testGetGenusFromSpecies() {
         System.out.println("getGenusFromSpecies");
         String subspeciesName = "";

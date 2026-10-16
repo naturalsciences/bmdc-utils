@@ -11,12 +11,9 @@ import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import org.apache.commons.collections4.map.SingletonMap;
-import org.junit.After;
-import org.junit.AfterClass;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.BeforeClass;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
-import static org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.*;
 
 /**
  *
@@ -27,21 +24,6 @@ public class JsonUtilsTest {
     public JsonUtilsTest() {
     }
 
-    @BeforeClass
-    public static void setUpClass() {
-    }
-
-    @AfterClass
-    public static void tearDownClass() {
-    }
-
-    @Before
-    public void setUp() {
-    }
-
-    @After
-    public void tearDown() {
-    }
     private static String url1 = "http://ontologies.ef-ears.eu/ears2/1#dev_15";
     private static String prefLabel1 = "BIOMAPER-II+-+Wiebe+et+al+(1999,+2002)";
     private static String JSON1 = "{\"http://ontologies.ef-ears.eu/ears2/1#dev_15\":\"BIOMAPER-II+-+Wiebe+et+al+(1999,+2002)\"}";

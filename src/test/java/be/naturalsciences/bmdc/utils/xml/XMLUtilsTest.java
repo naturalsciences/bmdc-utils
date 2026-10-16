@@ -17,13 +17,9 @@ import java.util.Map;
 import javax.xml.bind.JAXBException;
 import javax.xml.parsers.ParserConfigurationException;
 import org.apache.commons.io.FileUtils;
-import org.junit.After;
-import org.junit.AfterClass;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.BeforeClass;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
-import static org.junit.Assert.*;
-import org.junit.Ignore;
+import static org.junit.jupiter.api.Assertions.*;
 import org.w3c.dom.Document;
 import org.w3c.dom.Node;
 import org.xml.sax.SAXException;
@@ -54,27 +50,11 @@ public class XMLUtilsTest {
         xmlFile = new File(classLoader.getResource("file1.xml").getFile());
     }
 
-    @BeforeClass
-    public static void setUpClass() {
-    }
-
-    @AfterClass
-    public static void tearDownClass() {
-    }
-
-    @Before
-    public void setUp() {
-    }
-
-    @After
-    public void tearDown() {
-    }
-
     /**
      * Test of xsltTransform method, of class XMLUtils.
      */
     @Test
-    @Ignore
+    @Disabled
     public void testXsltTransform_3args() throws Exception {
         System.out.println("xsltTransform");
         File xsltFile = null;
@@ -89,7 +69,7 @@ public class XMLUtilsTest {
      * Test of xsltTransform method, of class XMLUtils.
      */
     @Test
-    @Ignore
+    @Disabled
     public void testXsltTransform_File_InputStream() throws Exception {
         System.out.println("xsltTransform");
         File xsltFile = null;
@@ -105,7 +85,7 @@ public class XMLUtilsTest {
      * Test of prettyPrint method, of class XMLUtils.
      */
     @Test
-    @Ignore
+    @Disabled
     public void testPrettyPrint() throws Exception {
         System.out.println("prettyPrint");
         String inputString = "";
@@ -167,7 +147,7 @@ public class XMLUtilsTest {
      * Test of xpathQueryNode method, of class XMLUtils.
      */
     @Test
-    @Ignore
+    @Disabled
     public void testXpathQueryNode() throws Exception {
         System.out.println("xpathQueryNode");
         File xmlFile = null;
@@ -184,7 +164,7 @@ public class XMLUtilsTest {
      * Test of xpathQueryNodeXML method, of class XMLUtils.
      */
     @Test
-    @Ignore
+    @Disabled
     public void testXpathQueryNodeXML() throws Exception {
         System.out.println("xpathQueryNodeXML");
         File xmlFile = null;

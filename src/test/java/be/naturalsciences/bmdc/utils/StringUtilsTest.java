@@ -14,13 +14,9 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.regex.Pattern;
-import org.junit.After;
-import org.junit.AfterClass;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.BeforeClass;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
-import static org.junit.Assert.*;
-import org.junit.Ignore;
+import static org.junit.jupiter.api.Assertions.*;
 
 /**
  *
@@ -31,21 +27,6 @@ public class StringUtilsTest {
     public StringUtilsTest() {
     }
 
-    @BeforeClass
-    public static void setUpClass() {
-    }
-
-    @AfterClass
-    public static void tearDownClass() {
-    }
-
-    @Before
-    public void setUp() {
-    }
-
-    @After
-    public void tearDown() {
-    }
 
     /**
      * Test of getRegexFromLine method, of class StringUtils.
@@ -87,7 +68,7 @@ public class StringUtilsTest {
      * Test of countOccurences method, of class StringUtils.
      */
     @Test
-    @Ignore
+    @Disabled
     public void testCountOccurences() {
         System.out.println("countOccurences");
         String line = "";
@@ -103,7 +84,7 @@ public class StringUtilsTest {
      * Test of parseUrn method, of class StringUtils.
      */
     @Test
-    @Ignore
+    @Disabled
     public void testParseUrn() {
         System.out.println("parseUrn");
         String urn = "";
@@ -118,7 +99,7 @@ public class StringUtilsTest {
      * Test of getLastUrnPart method, of class StringUtils.
      */
     @Test
-    @Ignore
+    @Disabled
     public void testGetLastUrnPart() {
         System.out.println("getLastUrnPart");
         String urn = "";
@@ -133,7 +114,7 @@ public class StringUtilsTest {
      * Test of getRegexFromUrl method, of class StringUtils.
      */
     @Test
-    @Ignore
+    @Disabled
     public void testGetRegexFromUrl() throws Exception {
         System.out.println("getRegexFromUrl");
         String url = "";
@@ -151,7 +132,7 @@ public class StringUtilsTest {
      * Test of getRegexFromFile method, of class StringUtils.
      */
     @Test
-    @Ignore
+    @Disabled
     public void testGetRegexFromFile_4args() throws Exception {
         System.out.println("getRegexFromFile");
         File file = null;
@@ -169,7 +150,7 @@ public class StringUtilsTest {
      * Test of getRegexFromFile method, of class StringUtils.
      */
     @Test
-    @Ignore
+    @Disabled
     public void testGetRegexFromFile_3args() throws Exception {
         System.out.println("getRegexFromFile");
         File file = null;
@@ -186,7 +167,7 @@ public class StringUtilsTest {
      * Test of getRegexResultFromMultilineString method, of class StringUtils.
      */
     @Test
-    @Ignore
+    @Disabled
     public void testGetRegexResultFromMultilineString() {
         System.out.println("getRegexResultFromMultilineString");
         String lines = "";
@@ -203,7 +184,7 @@ public class StringUtilsTest {
      * Test of flattenListOfLists method, of class StringUtils.
      */
     @Test
-    @Ignore
+    @Disabled
     public void testFlattenListOfLists() {
         System.out.println("flattenListOfLists");
         List expResult = null;
@@ -217,7 +198,7 @@ public class StringUtilsTest {
      * Test of getRegexGroupResults method, of class StringUtils.
      */
     @Test
-    @Ignore
+    @Disabled
     public void testGetRegexGroupResults() {
         System.out.println("getRegexGroupResults");
         String string = "";
@@ -233,7 +214,7 @@ public class StringUtilsTest {
      * Test of getRegexFromReader method, of class StringUtils.
      */
     @Test
-    @Ignore
+    @Disabled
     public void testGetRegexFromReader() throws Exception {
         System.out.println("getRegexFromReader");
         BufferedReader reader = null;
@@ -251,7 +232,7 @@ public class StringUtilsTest {
      * Test of getRegexFromStream method, of class StringUtils.
      */
     @Test
-    @Ignore
+    @Disabled
     public void testGetRegexFromStream() {
         System.out.println("getRegexFromStream");
         InputStream is = null;
@@ -286,7 +267,7 @@ public class StringUtilsTest {
      * Test of mappifyPropertyString method, of class StringUtils.
      */
     @Test
-    @Ignore
+    @Disabled
     public void testMappifyPropertyString() {
         System.out.println("mappifyPropertyString");
         String propString = "";
@@ -305,7 +286,7 @@ public class StringUtilsTest {
      * Test of isURL method, of class StringUtils.
      */
     @Test
-    @Ignore
+    @Disabled
     public void testIsURL() {
         System.out.println("isURL");
         String url = "";
@@ -320,7 +301,7 @@ public class StringUtilsTest {
      * Test of stringBuilderReplace method, of class StringUtils.
      */
     @Test
-    @Ignore
+    @Disabled
     public void testStringBuilderReplace() {
         System.out.println("stringBuilderReplace");
         StringBuilder sb = null;
@@ -337,7 +318,7 @@ public class StringUtilsTest {
      * Test of stringBuilderReplaceAll method, of class StringUtils.
      */
     @Test
-    @Ignore
+    @Disabled
     public void testStringBuilderReplaceAll() {
         System.out.println("stringBuilderReplaceAll");
         StringBuilder sb = null;
@@ -354,7 +335,7 @@ public class StringUtilsTest {
      * Test of findNotMatching method, of class StringUtils.
      */
     @Test
-    @Ignore
+    @Disabled
     public void testFindNotMatching() {
         System.out.println("findNotMatching");
         String sourceStr = "";
@@ -370,7 +351,7 @@ public class StringUtilsTest {
      * Test of flattenString method, of class StringUtils.
      */
     @Test
-    @Ignore
+    @Disabled
     public void testFlattenString() {
         System.out.println("flattenString");
         String input = "";
@@ -385,7 +366,7 @@ public class StringUtilsTest {
      * Test of round method, of class StringUtils.
      */
     @Test
-    @Ignore
+    @Disabled
     public void testRound() {
         System.out.println("round");
         double value = 0.0;

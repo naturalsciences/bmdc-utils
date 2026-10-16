@@ -253,7 +253,26 @@ public class XMLUtils {
     }
 
     public static List<String> xpathQueryString(Document xmlDoc, String xpathQuery, Map<String, String> namespaces) {
-        return xpathQueryString(new XMLDocument(xmlDoc), xpathQuery, namespaces);
+        // NB: deliberately NOT delegating to the XML/XMLDocument (jcabi) overload below.
+        // XMLDocument's Node constructor eagerly serializes the *entire* xmlDoc to a String
+        // on every call, which is disastrous when xmlDoc is a large, already-parsed, long-lived
+        // Document (e.g. a cached vocabulary): each lookup would re-serialize the whole tree just
+        // to run one XPath query. Evaluate directly against the DOM instead, as xpathQueryNodes()
+        // already does below.
+        List<String> result = new ArrayList<>();
+        try {
+            XPath xPath = XPathFactory.newInstance().newXPath();
+            xPath.setNamespaceContext(new NamespaceContextMap(namespaces));
+            NodeList nodes = (NodeList) xPath.evaluate(xpathQuery, xmlDoc, XPathConstants.NODESET);
+            for (int i = 0; i < nodes.getLength(); ++i) {
+                Node node = nodes.item(i);
+                String value = node.getNodeValue();
+                result.add(value != null ? value : node.getTextContent());
+            }
+        } catch (XPathExpressionException ex) {
+            Logger.getLogger(XMLUtils.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return result;
     }
 
     private static List<String> xpathQueryString(XML xml, String xpathQuery, Map<String, String> namespaces) {
@@ -295,7 +314,17 @@ public class XMLUtils {
     }
 
     public static Node xpathQueryNode(Document xmlDoc, String xpathQuery, Map<String, String> namespaces) {
-        return xpathQueryNode(new XMLDocument(xmlDoc), xpathQuery, namespaces);
+        // See the comment in xpathQueryString(Document, ...): avoid wrapping an already-parsed
+        // Document in a jcabi XMLDocument, which would re-serialize the whole tree to a String
+        // on every single-node lookup. Evaluate directly against the DOM instead.
+        try {
+            XPath xPath = XPathFactory.newInstance().newXPath();
+            xPath.setNamespaceContext(new NamespaceContextMap(namespaces));
+            return (Node) xPath.evaluate(xpathQuery, xmlDoc, XPathConstants.NODE);
+        } catch (XPathExpressionException ex) {
+            Logger.getLogger(XMLUtils.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
+        }
     }
 
     private static Node xpathQueryNode(XML xml, String xpathQuery, Map<String, String> namespaces) {
